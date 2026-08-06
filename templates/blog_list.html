@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Blog | BEA Designs{% endblock %}
+
+{% block extra_style %}
+  .blog-hero {
+    background: linear-gradient(135deg, var(--charcoal) 0%, var(--blueprint) 100%);
+    color: var(--off-white);
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+  }
+  .blog-hero h1 { font-size: 3rem; margin: 0 0 0.5rem; }
+  .blog-hero p { opacity: 0.85; font-size: 1.05rem; margin: 0; }
+  .blog-main { max-width: 820px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+  .post-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--blueprint-bright);
+    border-radius: 6px;
+    padding: 1.75rem 2rem;
+    margin-bottom: 1.5rem;
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+  }
+  .post-card:hover { box-shadow: 0 6px 18px rgba(27, 79, 114, 0.12); transform: translateY(-2px); }
+  .post-card .date { color: var(--brass); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; font-family: 'Big Shoulders Display', sans-serif; }
+  .post-card h2 { margin: 0.35rem 0 0.6rem; font-size: 1.6rem; }
+  .post-card h2 a { color: var(--charcoal); text-decoration: none; }
+  .post-card h2 a:hover { color: var(--blueprint-bright); }
+  .post-card p { margin: 0 0 0.9rem; color: #4a4a4a; }
+  .post-card .read-more { color: var(--blueprint-bright); font-weight: 600; text-decoration: none; font-size: 0.92rem; }
+  .post-card .read-more:hover { color: var(--brass); }
+  .empty { text-align: center; color: #777; padding: 3rem 1rem; }
+{% endblock %}
+
+{% block content %}
+<div class="blog-hero">
+  <h1>From the Studio</h1>
+  <p>Notes on CAD, BIM, and building the 8-Plex &mdash; from BEA Designs</p>
+</div>
+
+<div class="blog-main">
+  {% if posts %}
+    {% for post in posts %}
+      <article class="post-card">
+        <div class="date">{{ post.formatted_date() }}</div>
+        <h2><a href="{{ url_for('blog_post', slug=post.slug) }}">{{ post.title }}</a></h2>
+        {% if post.excerpt %}<p>{{ post.excerpt }}</p>{% endif %}
+        <a class="read-more" href="{{ url_for('blog_post', slug=post.slug) }}">Read more &rarr;</a>
+      </article>
+    {% endfor %}
+  {% else %}
+    <div class="empty">No posts yet — check back soon.</div>
+  {% endif %}
+</div>
+{% endblock %}

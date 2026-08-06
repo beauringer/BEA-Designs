@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }} | BEA Designs Blog{% endblock %}
+
+{% block extra_style %}
+  .post-main { max-width: 720px; margin: 0 auto; padding: 3.5rem 2rem 5rem; }
+  .back-link { display: inline-block; color: var(--blueprint-bright); text-decoration: none; font-weight: 600; font-size: 0.9rem; margin-bottom: 1.75rem; }
+  .back-link:hover { color: var(--brass); }
+  .post-meta { color: var(--brass); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem; font-family: 'Big Shoulders Display', sans-serif; }
+  .post-main article h1 { font-size: 2.4rem; margin: 0 0 0.5rem; color: var(--charcoal); line-height: 1.1; }
+  .byline { color: #777; font-size: 0.92rem; margin-bottom: 2.2rem; }
+  .post-body { white-space: pre-wrap; font-size: 1.05rem; color: #333; }
+{% endblock %}
+
+{% block content %}
+<div class="post-main">
+  <a class="back-link" href="{{ url_for('blog_list') }}">&larr; Back to Blog</a>
+  <article>
+    <div class="post-meta">{{ post.formatted_date() }}</div>
+    <h1>{{ post.title }}</h1>
+    <div class="byline">By {{ post.author }}</div>
+    <div class="post-body">{{ post.content }}</div>
+  </article>
+</div>
+{% endblock %}
